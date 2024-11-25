@@ -40,7 +40,7 @@ function Header() {
         <a href="/">Home</a>
         <a href="/wishlist">Wishlist</a>
         <a href="/recommendations">Recommendations</a>
-        <a href="/comparison">Comparison</a>
+        <a href="/comparison">Compare</a>
       </nav>
       <div className="profile">
         <button
