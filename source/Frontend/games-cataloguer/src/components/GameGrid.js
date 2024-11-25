@@ -99,7 +99,7 @@ function GameGrid({ searchQuery }) {
   return (
     <>
       {loading ? (
-        // Render loading effect while waiting for the response
+        //render loading effect while waiting for the response
         <div className="loading-container">
           <p>Loading games...</p>
         </div>
