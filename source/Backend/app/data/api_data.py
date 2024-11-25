@@ -18,9 +18,11 @@ class Game(GameBase):
 
 #USER
 class UserBase(BaseModel):
+    id: int
     username: str
 
-class UserCreate(UserBase):
+class UserCreate(BaseModel):
+    username: str
     password: str 
 
 class User(UserBase):

@@ -1,0 +1,14 @@
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 2rem;
+}
+  
+.game-card {
+    background: #f0f0f0;
+    height: 150px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+  

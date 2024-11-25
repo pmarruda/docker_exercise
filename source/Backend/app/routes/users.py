@@ -11,11 +11,15 @@ def create_user(user: api_data.UserCreate, db: Session = Depends(database.get_db
     return db_user
 
 @router.post("/login", response_model=api_data.UserBase)
-def login(username: str, password: str, db: Session = Depends(database.get_db)):
-    user = database.authenticate_user(db, username, password)
+def login(user: api_data.UserCreate, db: Session = Depends(database.get_db)):
+    user = database.authenticate_user(db, user.username, user.password)
     if not user:
         raise HTTPException(status_code=401, detail="Invalid username or password")
-    return {"username": user.username}
+    
+    return {
+        "id": user.id,
+        "username": user.username,
+    }
 
 @router.get("/{user_id}", response_model=api_data.User)
 def get_user(user_id: int, db: Session = Depends(database.get_db)):
@@ -44,3 +48,4 @@ def get_wishlist(user_id: int, db: Session = Depends(database.get_db)):
     if wishlist is None:
         raise HTTPException(status_code=404, detail="User not found")
     return wishlist
+
