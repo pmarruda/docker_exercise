@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, Table
+from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, Table, LargeBinary
 from sqlalchemy.orm import relationship
 from ..database import Base
 
@@ -10,7 +10,7 @@ class Game(Base):
     description = Column(String)
     price = Column(Float, nullable=False)
     release_date = Column(Date)
-    image_url = Column(String)
+    image = Column(LargeBinary)
 
 
 #association table for wishlist

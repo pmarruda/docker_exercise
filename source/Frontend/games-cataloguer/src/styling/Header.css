@@ -86,4 +86,24 @@
 .logo .brand-name:hover {
     text-decoration: underline; 
 }
+
+.logout-button {
+    background: none;
+    border: none;
+    color: #d9534f;
+    cursor: pointer;
+    padding: 5px;
+    text-align: left;
+}
+  
+.logout-button:hover {
+    color: #c9302c;
+}
+
+.username-display {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 10px;
+}
+  
   

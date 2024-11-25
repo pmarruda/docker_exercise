@@ -5,6 +5,7 @@ from passlib.context import CryptContext
 from .data import api_data
 from .data import db_models
 import os
+import base64
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -29,10 +30,32 @@ def get_db():
 
 #GAMES
 def get_games(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(db_models.Game).offset(skip).limit(limit).all()
+    total = db.query(db_models.Game).count() 
+    games = (
+        db.query(db_models.Game)
+        .order_by(db_models.Game.id.desc()) 
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+    # Encode images as Base64
+    for game in games:
+        game.image = base64.b64encode(game.image).decode("utf-8") if game.image else None
+    return {"games": games, "total": total}
 
 def get_game(db: Session, game_id: int):
-    return db.query(db_models.Game).filter(db_models.Game.id == game_id).first()
+    game = db.query(db_models.Game).filter(db_models.Game.id == game_id).first()
+    if game and game.image:
+        game.image = base64.b64encode(game.image).decode("utf-8")
+    return game
+
+def remove_game(db: Session, game_id: int):
+    game = db.query(db_models.Game).filter(db_models.Game.id == game_id).first()
+    if not game:
+        return None
+    db.delete(game)
+    db.commit()
+    return game.id
 
 def add_game(db: Session, game: api_data.GameBase):
     db_game = db_models.Game(**game.model_dump())
@@ -40,6 +63,7 @@ def add_game(db: Session, game: api_data.GameBase):
     db.commit()
     db.refresh(db_game)
     return db_game
+    
 
 #USERS
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -95,4 +119,8 @@ def get_user_wishlist(db: Session, user_id: int):
     user = db.query(db_models.User).filter(db_models.User.id == user_id).first()
     if not user:
         return None
-    return user.wishlist.all()
+    wishlist = user.wishlist.all()
+    wishlist.reverse()
+    for game in wishlist:
+        game.image = base64.b64encode(game.image).decode("utf-8") if game.image else None
+    return wishlist

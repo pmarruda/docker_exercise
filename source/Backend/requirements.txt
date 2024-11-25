@@ -5,3 +5,5 @@ psycopg2
 pydantic
 python-dotenv
 bcrypt
+passlib
+python-multipart

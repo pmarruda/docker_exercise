@@ -1,10 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styling/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser} from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [username, setUsername] = useState('');
+  const navigate = useNavigate();
+
+  // Fetch the username from localStorage when the component mounts
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
+
+  // Logout functionality
+  const handleLogout = () => {
+    // Clear the cache
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('username');
+    localStorage.removeItem('id');
+
+    // Redirect to the login page
+    navigate('/login');
+  };
 
   return (
     <header className="header">
@@ -16,8 +38,9 @@ function Header() {
       </div>
       <nav className="nav-links">
         <a href="/">Home</a>
-        <a href="#recommended">Recommended</a>
-        <a href="#comparison">Comparison</a>
+        <a href="/wishlist">Wishlist</a>
+        <a href="/recommendations">Recommendations</a>
+        <a href="/comparison">Comparison</a>
       </nav>
       <div className="profile">
         <button
@@ -28,13 +51,14 @@ function Header() {
         </button>
         {dropdownOpen && (
           <div className="profile-dropdown">
-            <a href="#linked-accounts">Linked Accounts</a>
+            {/* Display username */}
+            <p className="username-display">{username}</p>
             <hr />
-            <a href="#played-games">Played Games</a>
+            <a href="/wishlist">Wishlist</a>
             <hr />
-            <a href="#wish-list">Wishlist</a>
-            <hr />
-            <a href="#settings">Settings</a>
+            <button className="logout-button" onClick={handleLogout}>
+              Logout
+            </button>
           </div>
         )}
       </div>

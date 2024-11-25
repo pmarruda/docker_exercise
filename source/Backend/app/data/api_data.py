@@ -8,13 +8,17 @@ class GameBase(BaseModel):
     description: Optional[str]
     price: float
     release_date: Optional[date]
-    image_url: Optional[str]
+    image: Optional[bytes]
 
 class Game(GameBase):
     id: int
 
     class Config:
         orm_mode = True
+
+class PaginatedGames(BaseModel):
+    games: List[Game]
+    total: int
 
 #USER
 class UserBase(BaseModel):

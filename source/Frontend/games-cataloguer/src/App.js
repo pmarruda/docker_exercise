@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import GameGrid from './components/GameGrid';
 import Login from './components/Login';
 import SearchBar from './components/SearchBar';
+import Wishlist from './components/Wishlist';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
 
 function AppContent() {
   const location = useLocation();
+  const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <>
@@ -24,8 +26,16 @@ function AppContent() {
           path="/"
           element={
             <ProtectedRoute>
-              <SearchBar />
-              <GameGrid />
+              <SearchBar setSearchQuery={setSearchQuery} />
+              <GameGrid searchQuery={searchQuery} />
+            </ProtectedRoute>
+          }
+          />
+        <Route
+          path="/wishlist"
+          element={
+            <ProtectedRoute>
+              <Wishlist />
             </ProtectedRoute>
           }
         />
