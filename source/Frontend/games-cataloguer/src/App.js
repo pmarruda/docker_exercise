@@ -5,6 +5,7 @@ import GameGrid from './components/GameGrid';
 import Login from './components/Login';
 import SearchBar from './components/SearchBar';
 import Wishlist from './components/Wishlist';
+import CreateAccount from './components/CreateAccount';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function AppContent() {
 
   return (
     <>
-      {location.pathname !== '/login' && <Header />}
+      {location.pathname !== '/create-account' && location.pathname !== '/login' && <Header />}
       <Routes>
         <Route
           path="/"
@@ -40,6 +41,7 @@ function AppContent() {
           }
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/create-account" element={<CreateAccount />} />
       </Routes>
     </>
   );

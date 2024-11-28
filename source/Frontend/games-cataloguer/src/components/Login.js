@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../styling/Login.css'; 
+import '../styling/Login.css';
 
 const apiUrl = "http://localhost:8000";
 
@@ -9,7 +9,7 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,34 +27,42 @@ function Login() {
       setError('Invalid username or password');
     }
   };
+
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin}>
-        <h2>Login</h2>
-        {error && <p className="error-message">{error}</p>}
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="login-button">
-          Login
-        </button>
+          <h2>Login</h2>
+          {error && <p className="error-message">{error}</p>}
+          <div className="form-group">
+              <label htmlFor="username">Username</label>
+              <input
+                  type="text"
+                  id="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+              />
+          </div>
+          <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+              />
+          </div>
+          <button type="submit" className="login-button">
+              Login
+          </button>
+          <button
+              type="button"
+              className="create-account-button"
+              onClick={() => navigate('/create-account')}
+          >
+              Create Account
+          </button>
       </form>
     </div>
   );

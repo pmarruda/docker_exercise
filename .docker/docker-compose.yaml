@@ -15,7 +15,8 @@ services:
       APP_PORT: 8000
       FRONTEND_URL: http://games-frontend:3000
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
   games-frontend:
     build:
@@ -39,6 +40,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ../scripts/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "user", "-d", "games_database"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 #Data persists even if container is restarted
 volumes:
