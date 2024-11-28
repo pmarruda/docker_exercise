@@ -4,6 +4,8 @@ import '../styling/GameGrid.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as filledHeart } from '@fortawesome/free-solid-svg-icons';
 
+const apiUrl = "http://localhost:8000";
+
 function Wishlist() {
   const [wishlistGames, setWishlistGames] = useState([]); // Games in the wishlist
   const [loading, setLoading] = useState(true);
@@ -19,7 +21,7 @@ function Wishlist() {
 
 
     axios
-      .get(`http://127.0.0.1:8000/api/users/${userId}/wishlist`)
+      .get(`${apiUrl}/api/users/${userId}/wishlist`)
       .then((response) => {
         setWishlistGames(response.data || []);
         console.log(response.data);
@@ -40,7 +42,7 @@ function Wishlist() {
     }
 
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/users/${userId}/wishlist/${gameId}`);
+      await axios.delete(`${apiUrl}/api/users/${userId}/wishlist/${gameId}`);
       setWishlistGames((prev) => prev.filter((game) => game.id !== gameId));
     } catch (error) {
       console.error('Error removing game from wishlist:', error);

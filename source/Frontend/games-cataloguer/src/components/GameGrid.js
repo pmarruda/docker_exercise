@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as filledHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as unfilledHeart } from '@fortawesome/free-regular-svg-icons';
 
+const apiUrl = "http://localhost:8000";
+
 function GameGrid({ searchQuery }) {
   const [games, setGames] = useState([]); // Initialize as an empty array
   const [wishlist, setWishlist] = useState(new Set());
@@ -18,7 +20,7 @@ function GameGrid({ searchQuery }) {
   useEffect(() => {
     const skip = (currentPage - 1) * PAGE_SIZE;
     axios
-      .get(`http://127.0.0.1:8000/api/games?skip=${skip}&limit=${PAGE_SIZE}`)
+      .get(`${apiUrl}/api/games?skip=${skip}&limit=${PAGE_SIZE}`)
       .then((response) => {
         setGames(response.data.games || []); // Default to an empty array
         setTotalGames(response.data.total || 0); // Default total to 0
@@ -41,7 +43,7 @@ function GameGrid({ searchQuery }) {
     }
 
     axios
-      .get(`http://127.0.0.1:8000/api/users/${userId}/wishlist`)
+      .get(`${apiUrl}/api/users/${userId}/wishlist`)
       .then((response) => {
         setWishlist(new Set(response.data.map((game) => game.id)));
       })
@@ -60,14 +62,14 @@ function GameGrid({ searchQuery }) {
 
     try {
       if (wishlist.has(gameId)) {
-        await axios.delete(`http://127.0.0.1:8000/api/users/${userId}/wishlist/${gameId}`);
+        await axios.delete(`${apiUrl}/api/users/${userId}/wishlist/${gameId}`);
         setWishlist((prev) => {
           const updated = new Set(prev);
           updated.delete(gameId);
           return updated;
         });
       } else {
-        await axios.post(`http://127.0.0.1:8000/api/users/${userId}/wishlist/${gameId}`);
+        await axios.post(`${apiUrl}/api/users/${userId}/wishlist/${gameId}`);
         setWishlist((prev) => new Set(prev).add(gameId));
       }
     } catch (error) {

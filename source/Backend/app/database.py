@@ -2,8 +2,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from passlib.context import CryptContext
-from .data import api_data
-from .data import db_models
+from data import api_data
+from data import db_models
 import os
 import base64
 from dotenv import load_dotenv

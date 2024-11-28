@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
 from typing import Optional
-from ..data import api_data
+from data import api_data
 from datetime import date
-from .. import database
+import database
 
 router = APIRouter(prefix="/games",  tags=["games"])
 

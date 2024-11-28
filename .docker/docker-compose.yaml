@@ -1,0 +1,46 @@
+services:
+  games-backend:
+    build:
+      context: ..
+      dockerfile: ./.docker/Dockerfile.backend
+    container_name: games-backend
+    ports:
+      - "8000:8000"
+    environment:
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_HOST: games_postgres
+      DB_PORT: 5432
+      DB_NAME: games_database
+      APP_PORT: 8000
+      FRONTEND_URL: http://games-frontend:3000
+    depends_on:
+      - postgres
+
+  games-frontend:
+    build:
+      context: ..   
+      dockerfile: ./.docker/Dockerfile.frontend
+    container_name: games-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - games-backend
+    
+
+  postgres:
+    image: postgres:latest
+    container_name: games_postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: games_database
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+#Data persists even if container is restarted
+volumes:
+  postgres_data:
+
