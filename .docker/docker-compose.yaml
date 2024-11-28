@@ -6,14 +6,8 @@ services:
     container_name: games-backend
     ports:
       - "8000:8000"
-    environment:
-      DB_USER: user
-      DB_PASSWORD: password
-      DB_HOST: games_postgres
-      DB_PORT: 5432
-      DB_NAME: games_database
-      APP_PORT: 8000
-      FRONTEND_URL: http://games-frontend:3000
+    env_file:
+      - ./envs/backend.env
     depends_on:
       postgres:
         condition: service_healthy
@@ -25,6 +19,8 @@ services:
     container_name: games-frontend
     ports:
       - "80:80"
+    env_file:
+      - ./envs/frontend.env
     depends_on:
       - games-backend
     

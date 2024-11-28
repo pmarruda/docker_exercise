@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as filledHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as unfilledHeart } from '@fortawesome/free-regular-svg-icons';
 
-const apiUrl = "http://localhost:8000";
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 function GameGrid({ searchQuery }) {
   const [games, setGames] = useState([]); // Initialize as an empty array

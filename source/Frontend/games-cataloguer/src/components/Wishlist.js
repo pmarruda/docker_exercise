@@ -4,7 +4,7 @@ import '../styling/GameGrid.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as filledHeart } from '@fortawesome/free-solid-svg-icons';
 
-const apiUrl = "http://localhost:8000";
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 function Wishlist() {
   const [wishlistGames, setWishlistGames] = useState([]); // Games in the wishlist

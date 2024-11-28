@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styling/Login.css';
 
-const apiUrl = "http://localhost:8000";
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 function Login() {
   const [username, setUsername] = useState('');
