@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from data import db_models
-import database
+from database import engine
 from routes import games, users
 import os
 from dotenv import load_dotenv
@@ -28,7 +28,7 @@ app.include_router(users.router, prefix="/api")
 
 # Initialize database schema (only when run as the main script)
 if __name__ == "__main__":
-    db_models.Base.metadata.create_all(bind=database.engine)
+    db_models.Base.metadata.create_all(bind=engine)
     
     # Get port from environment variable APP_PORT, default to 8000 if not set
     app_port = int(os.getenv("APP_PORT", "8000"))

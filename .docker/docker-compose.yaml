@@ -9,7 +9,7 @@ services:
     env_file:
       - ./envs/backend.env
     depends_on:
-      postgres:
+      postgres: #Make sure db is ready
         condition: service_healthy
 
   games-frontend:
@@ -26,7 +26,7 @@ services:
     
 
   postgres:
-    image: postgres:latest
+    image: postgres:16-alpine
     container_name: games_postgres
     environment:
       POSTGRES_USER: user

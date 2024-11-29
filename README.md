@@ -38,7 +38,7 @@ Game Cataloguer is a web application made for a docker training exercise that al
 To get started, clone the repository using the following command:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/pmarruda/docker_exercise.git
 ```
 
 ### Starting the Project with Docker Compose
@@ -60,3 +60,9 @@ Open your browser and navigate to `http://localhost` to access the application.
 ### Refer to the individual README files for individual setup instructions:
 - Backend and DB: [Backend/README.md](source/Backend/README.md)
 - Frontend: [Frontend/README.md](source/Frontend/README.md)
+
+## Testing
+Seed data has been provided to simulate the state of the application.  
+Many different games are added to the db by default and a user with credentials:
+- Username: `testuser`
+- Password: `testpwd`

@@ -19,6 +19,7 @@ function Login() {
         password,
       });
 
+      // set local storage items after login successful 
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('username', response.data.username);
       localStorage.setItem('id', response.data.id);

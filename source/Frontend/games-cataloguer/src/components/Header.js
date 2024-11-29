@@ -51,7 +51,6 @@ function Header() {
         </button>
         {dropdownOpen && (
           <div className="profile-dropdown">
-            {/* Display username */}
             <p className="username-display">{username}</p>
             <hr />
             <a href="/wishlist">Wishlist</a>
