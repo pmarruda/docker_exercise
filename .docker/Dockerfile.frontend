@@ -1,7 +1,6 @@
-# Use a slim Node.js image to build the app
+#Stage 1 - Slim Node.js image to build the app
 FROM node:18-slim as build
 
-# Set the working directory
 WORKDIR /app
 
 # Install build dependencies
@@ -14,7 +13,7 @@ COPY ./source/Frontend/games-cataloguer/ ./
 # Build the application for production
 RUN npm run build
 
-# Use an Nginx image to serve the React app
+#Stage 2 - Nginx image to serve the React app
 FROM nginx:alpine
 
 # Copy built files from the previous stage to Nginx's default public directory

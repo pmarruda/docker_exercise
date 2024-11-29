@@ -58,5 +58,5 @@ Open your browser and navigate to `http://localhost` to access the application.
 
 ## Alternative Setup
 ### Refer to the individual README files for individual setup instructions:
-- Backend: [Backend/README.md](source/Backend/README.md)
+- Backend and DB: [Backend/README.md](source/Backend/README.md)
 - Frontend: [Frontend/README.md](source/Frontend/README.md)

@@ -17,6 +17,7 @@ This is the frontend application for the Game Cataloguer, built with React.
     ```bash
     npm install
     ```
+3. Create a .env file with the contents from [.docker/envs/frontend.env](../../.docker/envs/frontend.env) 
 
 ## Running the Application
 

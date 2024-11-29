@@ -27,7 +27,7 @@ This is the backend application for the Game Cataloguer, built with FastAPI and 
    ```bash
    pip install -r requirements.txt
    ```
-
+4. Create a .env file with the contents from [.docker/envs/backend.env](../../.docker/envs/backend.env) 
 ## Running the Application
 
 1. Start the FastAPI server:
