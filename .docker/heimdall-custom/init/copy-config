@@ -1,0 +1,11 @@
+#!/usr/bin/with-contenv bash
+
+# Check if its first build (copy.txt is not in the default config)
+if [ ! -f /config/copy.txt ]; then
+    echo "First run detected: Copying pre-configured Heimdall settings..."
+    cp -r /defaults/config/* /config/
+    chown -R abc:abc /config
+    chmod -R 755 /config
+else
+    echo "Heimdall configuration already exists, skipping initialization."
+fi

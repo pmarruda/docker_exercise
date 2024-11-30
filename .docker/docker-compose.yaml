@@ -1,3 +1,7 @@
+networks:
+  app_network:
+    driver: bridge
+
 services:
   games-backend:
     build:
@@ -11,6 +15,8 @@ services:
     depends_on:
       postgres: #Make sure db is ready
         condition: service_healthy
+    networks:
+      - app_network
 
   games-frontend:
     build:
@@ -23,8 +29,9 @@ services:
       - ./envs/frontend.env
     depends_on:
       - games-backend
+    networks:
+      - app_network
     
-
   postgres:
     image: postgres:16-alpine
     container_name: games_postgres
@@ -42,8 +49,74 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - app_network
+
+  heimdall:
+    build: ./heimdall-custom  
+    container_name: heimdall
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    ports:
+      - "8081:80"
+    volumes:
+      - heimdall_data:/config  
+    networks:
+      - app_network
+    restart: unless-stopped
+
+
+  glances:
+    image: nicolargo/glances
+    container_name: glances
+    ports:
+      - "61208:61208" # Glances web UI
+    command: glances --webserver 
+    networks:
+      - app_network
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    volumes:
+      - ./grafana:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - app_network
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - app_network
+    restart: unless-stopped
+
+  node-exporter:
+    image: prom/node-exporter
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    networks:
+      - app_network
+    restart: unless-stopped
+
 
 #Data persists even if container is restarted
 volumes:
   postgres_data:
+  heimdall_data:
 
