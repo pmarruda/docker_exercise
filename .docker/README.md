@@ -58,7 +58,8 @@ docker-compose up --build
 
 ## Custom Configurations
 
-- **heimdall-custom**: Contains custom configurations for the Heimdall dashboard service. The `init/` directory includes a script that handles first-run initialization by copying pre-configured settings.
+- **heimdall-custom**: Contains custom configurations for the Heimdall dashboard service. The `init/` directory includes a script that handles first-run initialization by copying pre-configured settings.  
+*! Make sure init/copy-config has `LF` line endings and not `CRLF` !*
 - **grafana**: Contains custom configurations for the Grafana monitoring service.
 - **prometheus.yml**: Configuration file for the Prometheus monitoring service.
 
