@@ -46,7 +46,7 @@ This is the backend application for the Game Cataloguer, built with FastAPI and 
    psql -U user -d games_database -f scripts/init_db.sql
    ```
 
-## Docker
+## Docker (extra)
 
 1. Build the Docker image:
 

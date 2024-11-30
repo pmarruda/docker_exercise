@@ -39,7 +39,7 @@ This is the frontend application for the Game Cataloguer, built with React.
 
 2. The production-ready files will be in the `build` directory.
 
-## Docker
+## Docker (extra)
 
 1. Build the Docker image:
 
