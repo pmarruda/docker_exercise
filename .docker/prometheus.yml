@@ -10,3 +10,6 @@ scrape_configs:
     static_configs:
       - targets: ['node-exporter:9100']
 
+  - job_name: 'games-backend'
+    static_configs:
+      - targets: ['games-backend:8000']

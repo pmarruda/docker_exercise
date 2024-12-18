@@ -6,6 +6,7 @@ from routes import games, users
 import os
 from dotenv import load_dotenv
 import uvicorn
+from prometheus_fastapi_instrumentator import Instrumentator
 
 # Load environment variables from .env file
 load_dotenv()
@@ -25,6 +26,8 @@ app.add_middleware(
 # Include routers for API endpoints
 app.include_router(games.router, prefix="/api")
 app.include_router(users.router, prefix="/api")
+
+Instrumentator().instrument(app).expose(app, endpoint="/metrics", include_in_schema=False)
 
 # Initialize database schema (only when run as the main script)
 if __name__ == "__main__":

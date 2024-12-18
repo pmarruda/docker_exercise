@@ -7,3 +7,4 @@ python-dotenv
 bcrypt
 passlib
 python-multipart
+prometheus-fastapi-instrumentator

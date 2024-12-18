@@ -30,7 +30,7 @@ class Game(GameBase):
     id: int
 
     class Config:
-        orm_mode = True  # Enable ORM mode for compatibility with SQLAlchemy models.
+        from_attributes = True
 
 class PaginatedGames(BaseModel):
     """
@@ -78,4 +78,4 @@ class User(UserBase):
     wishlist: List[Game] = []  # Default to an empty list for the wishlist.
 
     class Config:
-        orm_mode = True  # Enable ORM mode for compatibility with SQLAlchemy models.
+        from_attributes = True
